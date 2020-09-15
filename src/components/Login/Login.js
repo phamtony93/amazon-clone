@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "./Login.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { auth } from "../../firebase";
 
 function Login() {
+  let history = useHistory();
   // can these variables be declared as const??
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
@@ -17,10 +19,28 @@ function Login() {
 
   const signIn = (event) => {
     event.preventDefault();
+
+    auth.signInWithEmailAndPassword(email, password).then((auth) => {
+      // check that auth object returned correctly
+      if (auth) {
+        history.push("/");
+      }
+    });
   };
 
   const registerUser = (event) => {
     event.preventDefault();
+
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((auth) => {
+        if (auth) {
+          history.push("/");
+        }
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
   };
 
   return (

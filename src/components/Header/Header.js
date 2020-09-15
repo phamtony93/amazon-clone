@@ -4,11 +4,16 @@ import SearchIcon from "@material-ui/icons/Search";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import { Link } from "react-router-dom";
 import { useStateValue } from "../../StateProvider";
+import { auth } from "../../firebase";
 
 const LOGO = "http://pngimg.com/uploads/amazon/amazon_PNG11.png";
 
 function Header() {
-  let [{ basket }, dispatch] = useStateValue();
+  let [{ basket, user }, dispatch] = useStateValue();
+
+  const signOut = () => {
+    auth.signOut();
+  };
 
   return (
     <div className="header">
@@ -20,10 +25,16 @@ function Header() {
         <SearchIcon className="header__searchIcon" />
       </div>
       <div className="header__nav">
-        <Link to="/login">
-          <div className="header__navOption">
-            <span className="header__navOptionLineOne">Hello Guest</span>
-            <span className="header__navOptionLineTwo">Sign In</span>
+        {/* only redirect to login user was null */}
+        <Link to={!user && "/login"}>
+          {/* make div clickable for signout functionality */}
+          <div onClick={signOut} className="header__navOption">
+            <span className="header__navOptionLineOne">
+              Hello {user ? user.email : "Guest"}
+            </span>
+            <span className="header__navOptionLineTwo">
+              {user ? "Sign Out" : "Sign In"}
+            </span>
           </div>
         </Link>
         <div className="header__navOption">
