@@ -1,0 +1,72 @@
+.header {
+  display: flex;
+  height: 60px;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background-color: #131921;
+  z-index: 100;
+}
+
+.header__logo {
+  width: 100px;
+  /* keeps the aspect ratio of the image */
+  object-fit: contain;
+  margin: 0 20px;
+  margin-top: 18px;
+}
+
+.header__search {
+  display: flex;
+  align-items: center;
+  /* flex: 1 stretches container as far as possible*/
+  flex: 1;
+  border-radius: 24px;
+}
+
+.header__searchInput {
+  width: 100%;
+  /* shrink input size  */
+  height: 12px;
+  border: none;
+  /* add padding from contents to edge of input box */
+  padding: 10px;
+}
+
+.header__searchIcon {
+  background-color: #cd9042;
+  height: 22px !important;
+  /* pads the content (in this case the search icon) within the container */
+  padding: 5px;
+}
+
+.header__navOptionLineOne {
+  font-size: 10px;
+}
+
+.header__navOptionLineTwo {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.header__navOptionBasket {
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.header__basketCount {
+  margin: 0 5px;
+}
+
+.header__nav {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.header__navOption {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  margin: 0px 10px;
+}

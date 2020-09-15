@@ -1,0 +1,21 @@
+.home {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 1500px;
+}
+
+.home__row {
+  display: flex;
+  margin: 0 5px;
+  z-index: 1;
+}
+
+.home__image {
+  width: 100%;
+  z-index: -1;
+  /* overlaps images from bottom */
+  margin-bottom: -150px;
+  /* add mask from top to bottom, opaque to transparent */
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+}
