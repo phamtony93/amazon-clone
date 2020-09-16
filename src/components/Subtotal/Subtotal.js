@@ -30,7 +30,7 @@ function Subtotal() {
         prefix={"$"}
       />
       <Link to="/payment">
-        <button>Proceed to Checkout</button>
+        <button className="subtotal__confirmButton">Proceed to Checkout</button>
       </Link>
     </div>
   );

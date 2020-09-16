@@ -8,6 +8,13 @@ import Payment from "./components/Payment/Payment";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { auth } from "./firebase";
 import { useStateValue } from "./StateProvider";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
+//test key from Stripe
+const promise = loadStripe(
+  "pk_test_51HRtvKL0MubunR6nOpOJU3tgVMP2kNGQDJRG3lMmR38iBEkkFjELinxpK6nsXvAEeViPhBo4N9BoFz0T4MQHMrmX002C9WucMh"
+);
 
 function App() {
   const [{ user }, dispatch] = useStateValue();
@@ -38,7 +45,10 @@ function App() {
             <Login />
           </Route>
           <Route path="/payment">
-            <Payment />
+            {/* Payment component is wrapped in a HOC Elements */}
+            <Elements stripe={promise}>
+              <Payment />
+            </Elements>
           </Route>
           <Route path="/checkout">
             <Checkout />

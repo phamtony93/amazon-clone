@@ -10,7 +10,7 @@
   border-radius: 3px;
 }
 
-.subtotal > button {
+.subtotal__confirmButton {
   background: #f0c14b;
   border: solid 1px;
   margin-top: 10px;
