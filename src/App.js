@@ -4,6 +4,7 @@ import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import Checkout from "./components/Checkout/Checkout";
 import Login from "./components/Login/Login";
+import Payment from "./components/Payment/Payment";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { auth } from "./firebase";
 import { useStateValue } from "./StateProvider";
@@ -14,9 +15,6 @@ function App() {
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        console.log(authUser);
-        console.log("1");
-        console.log(user);
         dispatch({
           type: "SET_USER",
           user: authUser,
@@ -30,7 +28,6 @@ function App() {
     });
   }, []);
 
-  console.log("user is >>>> ", user);
   return (
     // use BEM naming ocnvnetion
     <Router>
@@ -39,6 +36,9 @@ function App() {
         <Switch>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/payment">
+            <Payment />
           </Route>
           <Route path="/checkout">
             <Checkout />
