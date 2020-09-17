@@ -54,7 +54,7 @@ function Payment() {
 
         //push to firebase
         db.collection("users")
-          .doc(user?.id)
+          .doc(user?.uid)
           .collection("orders")
           .doc(paymentIntent.id)
           .set({
@@ -132,7 +132,10 @@ function Payment() {
                   prefix={"$"}
                 />
               </div>
-              <button disable={processing || succeeded || disabled}>
+              <button
+                className="payment__buyNowButton"
+                disable={processing || succeeded || disabled}
+              >
                 <span>{processing ? <p>Processing..</p> : "Buy Now"}</span>
               </button>
 

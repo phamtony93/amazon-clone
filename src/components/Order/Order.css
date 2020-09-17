@@ -1,0 +1,19 @@
+.order {
+  background-color: white;
+  padding: 20px;
+  margin: 20px 0;
+  position: relative;
+}
+
+.order__id {
+  /* use position aboslute to the parent's relative */
+  position: absolute;
+  top: 40px;
+  right: 20px;
+}
+
+.order__total {
+  /* just align to the right within the container */
+  text-align: right;
+  font-weight: 500px;
+}

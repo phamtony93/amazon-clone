@@ -36,6 +36,9 @@ app.post("/payments/create", async (request, response) => {
 // - Listen Command
 exports.api = functions.https.onRequest(app);
 
+// run below command to deploy only the firebase cloud function
+//firebase deploy --only functions
+
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //

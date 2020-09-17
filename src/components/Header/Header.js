@@ -14,6 +14,13 @@ function Header() {
 
   const signOut = () => {
     auth.signOut();
+    dispatch({
+      type: "SET_USER",
+      user: null,
+    });
+    dispatch({
+      type: "EMPTY_BASKET",
+    });
     history.push("/");
   };
 
