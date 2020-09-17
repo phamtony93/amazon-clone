@@ -6,7 +6,8 @@ import { Link, useHistory } from "react-router-dom";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import CurrencyFormat from "react-currency-format";
 import { getBasketTotal } from "../../reducer";
-import Axios from "axios";
+import axios from "../../axios";
+import { db } from "../../firebase";
 
 function Payment() {
   const history = useHistory();
@@ -18,11 +19,11 @@ function Payment() {
   const [processing, setProcessing] = useState("");
   const [error, setError] = useState(null);
   const [disabled, setDisabled] = useState(true);
-  const [clientSecret, setClientSecret] = useState(true);
+  const [clientSecret, setClientSecret] = useState(null);
 
   useEffect(() => {
     const getClientSecret = async () => {
-      const response = await Axios({
+      const response = await axios({
         method: "post",
         // Stripe expects total in currency subunits (i.e cents for us dollars)
         url: `/payments/create?total=${getBasketTotal(basket) * 100}`,
@@ -50,22 +51,39 @@ function Payment() {
         setSucceeded(true);
         setProcessing(false);
         setError(null);
+
+        //push to firebase
+        db.collection("users")
+          .doc(user?.id)
+          .collection("orders")
+          .doc(paymentIntent.id)
+          .set({
+            basket: basket,
+            amount: paymentIntent.amount,
+            created: paymentIntent.created,
+          });
+
+        //empty basket
+        dispatch({
+          type: "EMPTY_BASKET",
+        });
         // use replace to repalce the payment route in the stack
-        history.replaceState("/orders");
+        history.replace("/orders");
       });
   };
   const handleChange = (e) => {
     //   if event object is empty, set disable to true, else false
     setDisabled(e.empty);
-    //
+    //set error message
     setError(e.error ? e.error.message : "");
   };
 
+  console.log("client secret >>>>> ", clientSecret);
   return (
     <div className="payment">
       <div className="payment__container">
         <h1>
-          Checkout (<Link>{basket?.length} Items</Link>)
+          Checkout (<Link to="/checkout">{basket?.length} Items</Link>)
         </h1>
         <div className="payment__section">
           <div className="payment__title">

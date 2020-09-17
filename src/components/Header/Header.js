@@ -2,17 +2,19 @@ import React from "react";
 import "./Header.css";
 import SearchIcon from "@material-ui/icons/Search";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
-import { Link } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import { useStateValue } from "../../StateProvider";
 import { auth } from "../../firebase";
 
 const LOGO = "http://pngimg.com/uploads/amazon/amazon_PNG11.png";
 
 function Header() {
+  const history = useHistory();
   let [{ basket, user }, dispatch] = useStateValue();
 
   const signOut = () => {
     auth.signOut();
+    history.push("/");
   };
 
   return (
@@ -37,10 +39,12 @@ function Header() {
             </span>
           </div>
         </Link>
-        <div className="header__navOption">
-          <span className="header__navOptionLineOne">Returns</span>
-          <span className="header__navOptionLineTwo">& Orders</span>
-        </div>
+        <Link to="/orders">
+          <div className="header__navOption">
+            <span className="header__navOptionLineOne">Returns</span>
+            <span className="header__navOptionLineTwo">& Orders</span>
+          </div>
+        </Link>
         <div className="header__navOption">
           <span className="header__navOptionLineOne">Your</span>
           <span className="header__navOptionLineTwo">Prime</span>
