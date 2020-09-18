@@ -6,6 +6,7 @@ import Checkout from "./components/Checkout/Checkout";
 import Login from "./components/Login/Login";
 import Payment from "./components/Payment/Payment";
 import Orders from "./components/Orders/Orders";
+import ProtectedRoute from "./components/ProtectedRoute";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { auth } from "./firebase";
 import { useStateValue } from "./StateProvider";
@@ -45,18 +46,18 @@ function App() {
           <Route path="/login">
             <Login />
           </Route>
-          <Route path="/payment">
+          <ProtectedRoute path="/payment">
             {/* Payment component is wrapped in a HOC Elements */}
             <Elements stripe={promise}>
               <Payment />
             </Elements>
-          </Route>
-          <Route path="/checkout">
+          </ProtectedRoute>
+          <ProtectedRoute path="/checkout">
             <Checkout />
-          </Route>
-          <Route path="/orders">
+          </ProtectedRoute>
+          <ProtectedRoute path="/orders">
             <Orders />
-          </Route>
+          </ProtectedRoute>
           <Route exact path="/">
             <Home />
           </Route>
